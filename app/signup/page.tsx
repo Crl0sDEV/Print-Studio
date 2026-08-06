@@ -16,12 +16,12 @@ export default async function SignUpPage({
   return (
     <AuthCard
       icon={Printer}
-      title="Create an Account"
-      description="Umpisahan ang pag-setup ng iyong Print Shop SaaS"
+      title="Create an account"
+      description="Enter your details to set up your shop"
       error={error}
       footer={
         <>
-          May account ka na?{' '}
+          Already have an account?{' '}
           <Link href="/login" className="font-semibold text-primary hover:underline">
             Log In
           </Link>

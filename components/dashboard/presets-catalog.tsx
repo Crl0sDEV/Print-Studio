@@ -9,7 +9,7 @@ export function PresetsCatalog({ presets, shopId }: { presets: any[] | null; sho
         <div>
           <h2 className="text-xl font-bold">Shop Presets Catalog</h2>
           <p className="text-sm text-muted-foreground">
-            Mga ready-made sizes and printing settings para sa shop mo
+            Ready-made sizes and printing settings for your storefront
           </p>
         </div>
         <AddPresetModal shopId={shopId} />
@@ -17,9 +17,9 @@ export function PresetsCatalog({ presets, shopId }: { presets: any[] | null; sho
 
       {!presets || presets.length === 0 ? (
         <Card className="space-y-3 border-border/40 bg-card/40 p-8 text-center">
-          <p className="text-muted-foreground">
-            Wala ka pang active presets. Mag-add ng ID sizes o Bond Paper settings!
-          </p>
+          <div className="flex h-32 items-center justify-center text-sm text-muted-foreground border rounded-lg bg-secondary/20">
+            You don't have any active presets yet. Click "Add Preset" to create your first print service!
+          </div>
         </Card>
       ) : (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">

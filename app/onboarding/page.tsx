@@ -16,8 +16,8 @@ export default async function OnboardingPage({
   return (
     <AuthCard
       icon={Store}
-      title="Set Up Your Print Shop"
-      description="Kailangan lang natin ng kaunting detalye ng iyong print shop bago simulan ang paggamit."
+      title="Complete Your Profile"
+      description="We just need a few details about your print shop before you can start using the dashboard."
       error={error}
       maxWidth="lg"
     >

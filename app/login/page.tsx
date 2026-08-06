@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Printer } from 'lucide-react'
+import Link from 'next/link'
 import { AuthCard } from '@/components/auth/auth-card'
 
 export default async function LoginPage({
@@ -15,14 +16,15 @@ export default async function LoginPage({
   return (
     <AuthCard
       icon={Printer}
-      title="PrintCraft SaaS"
-      description="Mag-login sa iyong Print Shop Dashboard"
+      title="Welcome back"
+      description="Enter your credentials to access your shop"
       error={error}
       footer={
         <>
-          Mag-login gamit ang test account na sinave sa Supabase seed data:
-          <br />
-          <span className="font-mono text-primary">demoowner@printcraft.ph</span>
+          Don't have an account?{' '}
+          <Link href="/signup" className="font-semibold text-primary hover:underline">
+            Sign up
+          </Link>
         </>
       }
     >

@@ -97,14 +97,22 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="border-t border-border/40 py-12">
-        <div className="container mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 sm:flex-row sm:px-6 lg:px-8">
-          <div className="flex items-center gap-2 text-lg font-bold tracking-tighter text-foreground mb-4 md:mb-0">
-            <Printer className="h-5 w-5 text-primary" />
-            <span>Prynt.</span>
+        <div className="container mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-4 sm:flex-row sm:px-6 lg:px-8">
+          <div className="flex flex-col items-center gap-2 md:items-start">
+            <div className="flex items-center gap-2 text-lg font-bold tracking-tighter text-foreground">
+              <Printer className="h-5 w-5 text-primary" />
+              <span>Prynt.</span>
+            </div>
+            <p className="text-sm text-muted-foreground text-center md:text-left">
+              © {new Date().getFullYear()} Prynt SaaS. Built for printing businesses.
+            </p>
           </div>
-          <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Prynt SaaS. Built for printing businesses.
-          </p>
+          
+          <div className="flex items-center gap-6 text-sm text-muted-foreground">
+            <Link href="/faq" className="hover:text-foreground transition-colors">FAQ</Link>
+            <Link href="/terms" className="hover:text-foreground transition-colors">Terms</Link>
+            <Link href="/privacy" className="hover:text-foreground transition-colors">Privacy</Link>
+          </div>
         </div>
       </footer>
     </div>
