@@ -35,6 +35,18 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Prynt - Modern Print Shop Management",
     description: "Enterprise-grade SaaS platform for print shop owners to manage orders, automate layouts, and boost revenue.",
+  },
+  icons: {
+    icon: [
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' }
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }
+    ],
+    other: [
+      { rel: 'manifest', url: '/site.webmanifest' }
+    ]
   }
 };
 
