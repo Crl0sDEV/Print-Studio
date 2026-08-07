@@ -71,6 +71,33 @@ export default async function SettingsPage() {
           </CardFooter>
         </form>
       </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Storage Settings (Google Drive)</CardTitle>
+          <CardDescription>
+            Connect your personal Google Drive to bypass the 50MB cloud storage limit. All customer uploads will be saved directly to a dedicated folder in your Google Drive.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-col gap-4">
+            <div className="rounded-lg border border-border/50 bg-secondary/20 p-4">
+              <h4 className="font-semibold text-sm mb-1">Status</h4>
+              {shop.gdrive_refresh_token ? (
+                <p className="text-sm text-green-600 font-medium">✓ Connected to Google Drive</p>
+              ) : (
+                <p className="text-sm text-amber-600 font-medium">⚠ Not connected. Using standard storage.</p>
+              )}
+            </div>
+            
+            <form action="/api/drive/connect" method="GET">
+              <Button type="submit" variant={shop.gdrive_refresh_token ? "outline" : "default"}>
+                {shop.gdrive_refresh_token ? "Reconnect Google Drive" : "Connect Google Drive"}
+              </Button>
+            </form>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   )
 }

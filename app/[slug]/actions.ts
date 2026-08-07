@@ -3,6 +3,8 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
+import { google } from 'googleapis'
+import { Readable } from 'stream'
 
 const OrderSchema = z.object({
   shopId: z.string().uuid(),
@@ -40,24 +42,59 @@ export async function submitOrder(formData: FormData) {
   let fileUrl = null
   let originalFileName = null
 
+  // Fetch Shop Settings for GDrive Token
+  const { data: shop } = await supabase
+    .from('shops')
+    .select('gdrive_refresh_token')
+    .eq('id', shopId)
+    .single()
+
   // Process File Upload if attached
   if (file && file.size > 0) {
-    const fileExt = file.name.split('.').pop()
-    const safeName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`
-    const filePath = `orders/${shopId}/${safeName}`
+    if (shop?.gdrive_refresh_token) {
+      // Use Google Drive
+      const oauth2Client = new google.auth.OAuth2(
+        process.env.GOOGLE_CLIENT_ID,
+        process.env.GOOGLE_CLIENT_SECRET
+      )
+      oauth2Client.setCredentials({ refresh_token: shop.gdrive_refresh_token })
+      const drive = google.drive({ version: 'v3', auth: oauth2Client })
 
-    const { error: uploadError } = await supabase.storage
-      .from('print_assets')
-      .upload(filePath, file)
+      const arrayBuffer = await file.arrayBuffer()
+      const buffer = Buffer.from(arrayBuffer)
+      const stream = Readable.from(buffer)
 
-    if (uploadError) {
-      console.error('File upload failed:', uploadError)
-      redirect(`/${slug}?error=upload_failed`)
+      try {
+        const driveRes = await drive.files.create({
+          requestBody: { name: `PRYNT_${Date.now()}_${file.name}` },
+          media: { mimeType: file.type, body: stream },
+          fields: 'id, webViewLink'
+        })
+        fileUrl = driveRes.data.webViewLink
+        originalFileName = file.name
+      } catch (err) {
+        console.error('Google Drive Upload Failed:', err)
+        redirect(`/${slug}?error=upload_failed`)
+      }
+    } else {
+      // Fallback to Supabase
+      const fileExt = file.name.split('.').pop()
+      const safeName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`
+      const filePath = `orders/${shopId}/${safeName}`
+
+      const { error: uploadError } = await supabase.storage
+        .from('print_assets')
+        .upload(filePath, file)
+
+      if (uploadError) {
+        console.error('File upload failed:', uploadError)
+        redirect(`/${slug}?error=upload_failed`)
+      }
+
+      const { data } = supabase.storage.from('print_assets').getPublicUrl(filePath)
+      fileUrl = data.publicUrl
+      originalFileName = file.name
     }
-
-    const { data } = supabase.storage.from('print_assets').getPublicUrl(filePath)
-    fileUrl = data.publicUrl
-    originalFileName = file.name
   }
 
   const { data, error } = await supabase.rpc('submit_public_order', {
