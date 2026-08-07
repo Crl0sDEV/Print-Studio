@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Printer, ArrowRight, Kanban, Calculator, UploadCloud } from 'lucide-react'
 
@@ -9,7 +10,7 @@ export default function Home() {
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-2 text-xl font-bold tracking-tighter">
-            <Printer className="h-6 w-6 text-primary" />
+            <Image src="/favicon-32x32.png" width={24} height={24} alt="Prynt Logo" className="rounded-sm" />
             <span>Prynt<span className="text-primary">.</span></span>
           </div>
           <div className="flex items-center gap-4">
@@ -37,7 +38,7 @@ export default function Home() {
             
             <h1 className="mb-6 text-5xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl">
               Manage your print shop <br className="hidden sm:block" />
-              <span className="bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">without the chaos.</span>
+              <span className="text-primary">without the chaos.</span>
             </h1>
             
             <p className="mx-auto mb-10 max-w-2xl text-lg text-muted-foreground">
@@ -100,7 +101,7 @@ export default function Home() {
         <div className="container mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-4 sm:flex-row sm:px-6 lg:px-8">
           <div className="flex flex-col items-center gap-2 md:items-start">
             <div className="flex items-center gap-2 text-lg font-bold tracking-tighter text-foreground">
-              <Printer className="h-5 w-5 text-primary" />
+              <Image src="/favicon-32x32.png" width={20} height={20} alt="Prynt Logo" className="rounded-sm" />
               <span>Prynt.</span>
             </div>
             <p className="text-sm text-muted-foreground text-center md:text-left">

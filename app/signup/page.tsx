@@ -15,7 +15,7 @@ export default async function SignUpPage({
 
   return (
     <AuthCard
-      icon={Printer}
+      customLogo="/favicon-32x32.png"
       title="Create an account"
       description="Enter your details to set up your shop"
       error={error}

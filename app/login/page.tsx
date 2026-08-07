@@ -15,7 +15,7 @@ export default async function LoginPage({
 
   return (
     <AuthCard
-      icon={Printer}
+      customLogo="/favicon-32x32.png"
       title="Welcome back"
       description="Enter your credentials to access your shop"
       error={error}

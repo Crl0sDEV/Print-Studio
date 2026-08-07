@@ -1,8 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import { Printer, LayoutDashboard, ListTodo, LogOut, BarChart3, Settings, Users, HelpCircle } from 'lucide-react'
+import { Printer, LayoutDashboard, ListTodo, LogOut, BarChart3, Settings, Users, HelpCircle, QrCode } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { signOut } from '@/app/dashboard/actions'
 import { TutorialModal } from './tutorial-modal'
@@ -26,6 +27,7 @@ export function DashboardSidebar({ shop, profile }: any) {
     { name: 'Orders Board', href: '/dashboard/orders', icon: ListTodo },
     { name: 'Customers', href: '/dashboard/customers', icon: Users },
     { name: 'Reports', href: '/dashboard/reports', icon: BarChart3 },
+    { name: 'QR Code', href: '/dashboard/qr', icon: QrCode },
     { name: 'Settings', href: '/dashboard/settings', icon: Settings },
   ]
 
@@ -35,8 +37,8 @@ export function DashboardSidebar({ shop, profile }: any) {
     <Sidebar variant="sidebar" collapsible="offcanvas">
       <SidebarHeader className="border-b border-border/40 p-4">
         <div className="flex items-center gap-3">
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
-            <Printer className="h-4 w-4" />
+          <div className="flex shrink-0 items-center justify-center rounded-sm">
+            <Image src="/favicon-32x32.png" width={24} height={24} alt="Prynt Logo" className="rounded-sm" />
           </div>
           <div className="flex flex-col">
             <span className="line-clamp-1 font-bold leading-tight">{shop.name}</span>
