@@ -1,6 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
-import { KanbanBoard } from '@/components/dashboard/kanban-board'
+import { OrdersTable } from '@/components/dashboard/orders-table'
 
 export default async function OrdersPage() {
   const supabase = await createClient()
@@ -34,10 +34,10 @@ export default async function OrdersPage() {
     <div className="flex h-full flex-col p-4 sm:p-6 lg:p-8">
         <div className="mb-6">
           <h2 className="text-2xl font-bold tracking-tight">Order Management</h2>
-          <p className="text-muted-foreground">Drag and drop orders to update their status in real-time.</p>
+          <p className="text-muted-foreground">Click on any order to view details and update its status.</p>
         </div>
         
-        <KanbanBoard initialOrders={orders || []} />
+        <OrdersTable initialOrders={orders || []} />
     </div>
   )
 }

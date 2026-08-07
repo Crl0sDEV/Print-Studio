@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
-import { Printer, ArrowRight, Kanban, Calculator, UploadCloud } from 'lucide-react'
+import { Printer, ArrowRight, Kanban, Calculator, UploadCloud, ListTodo, QrCode, WifiOff, Maximize } from 'lucide-react'
 
 export default function Home() {
   return (
@@ -42,7 +42,7 @@ export default function Home() {
             </h1>
             
             <p className="mx-auto mb-10 max-w-2xl text-lg text-muted-foreground">
-              Transform your printing business with automated pricing calculators, drag-and-drop order tracking, and seamless customer file uploads. Built specifically for SME print shops.
+              Transform your printing business with automated pricing calculators, real-time paginated order tracking, and seamless customer file uploads. Built specifically for SME print shops.
             </p>
             
             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
@@ -64,9 +64,9 @@ export default function Home() {
               <p className="text-muted-foreground">Replace your messy spreadsheets and Facebook chat orders with a professional system.</p>
             </div>
 
-            <div className="grid gap-8 md:grid-cols-3">
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {/* Feature 1 */}
-              <div className="rounded-2xl border border-border/40 bg-card p-8 transition-all hover:border-primary/50 hover:shadow-lg">
+              <div className="rounded-2xl border border-border/40 bg-card p-8 transition-all hover:border-primary/50 hover:shadow-lg hover:-translate-y-1">
                 <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
                   <Calculator className="h-6 w-6" />
                 </div>
@@ -75,21 +75,48 @@ export default function Home() {
               </div>
 
               {/* Feature 2 */}
-              <div className="rounded-2xl border border-border/40 bg-card p-8 transition-all hover:border-primary/50 hover:shadow-lg">
+              <div className="rounded-2xl border border-border/40 bg-card p-8 transition-all hover:border-primary/50 hover:shadow-lg hover:-translate-y-1">
                 <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                  <Kanban className="h-6 w-6" />
+                  <ListTodo className="h-6 w-6" />
                 </div>
-                <h3 className="mb-2 text-xl font-bold">Kanban Order Board</h3>
-                <p className="text-muted-foreground">Track jobs from "Pending" to "Ready for Pickup" using an intuitive drag-and-drop interface.</p>
+                <h3 className="mb-2 text-xl font-bold">Smart Orders Table</h3>
+                <p className="text-muted-foreground">Manage thousands of print jobs with a paginated, real-time data table. Instantly update statuses without losing track.</p>
               </div>
 
               {/* Feature 3 */}
-              <div className="rounded-2xl border border-border/40 bg-card p-8 transition-all hover:border-primary/50 hover:shadow-lg">
+              <div className="rounded-2xl border border-border/40 bg-card p-8 transition-all hover:border-primary/50 hover:shadow-lg hover:-translate-y-1">
                 <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
                   <UploadCloud className="h-6 w-6" />
                 </div>
                 <h3 className="mb-2 text-xl font-bold">Secure Asset Storage</h3>
-                <p className="text-muted-foreground">Customers upload PDFs and images directly to your shop. Download them instantly from your dashboard.</p>
+                <p className="text-muted-foreground">Customers upload PDFs and images directly to your shop. Download them instantly from your dashboard securely.</p>
+              </div>
+
+              {/* Feature 4 */}
+              <div className="rounded-2xl border border-border/40 bg-card p-8 transition-all hover:border-primary/50 hover:shadow-lg hover:-translate-y-1">
+                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                  <QrCode className="h-6 w-6" />
+                </div>
+                <h3 className="mb-2 text-xl font-bold">Shop QR Generator</h3>
+                <p className="text-muted-foreground">Automatically generate a custom branded QR code for your public storefront. Print it and let walk-in customers scan it!</p>
+              </div>
+
+              {/* Feature 5 */}
+              <div className="rounded-2xl border border-border/40 bg-card p-8 transition-all hover:border-primary/50 hover:shadow-lg hover:-translate-y-1">
+                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                  <WifiOff className="h-6 w-6" />
+                </div>
+                <h3 className="mb-2 text-xl font-bold">Offline-First PWA</h3>
+                <p className="text-muted-foreground">Keep working even if your internet goes down. Our offline-sync engine saves your changes locally and uploads them later.</p>
+              </div>
+
+              {/* Feature 6 */}
+              <div className="rounded-2xl border border-border/40 bg-card p-8 transition-all hover:border-primary/50 hover:shadow-lg hover:-translate-y-1">
+                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                  <Maximize className="h-6 w-6" />
+                </div>
+                <h3 className="mb-2 text-xl font-bold">Auto-Layout Studio</h3>
+                <p className="text-muted-foreground">Built-in visual studio for ID cards and merchandise. Automatically tile images for printing directly from the browser.</p>
               </div>
             </div>
           </div>

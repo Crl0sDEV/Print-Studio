@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Printer, LayoutDashboard, ListTodo, LogOut, BarChart3, Settings, Users, HelpCircle, QrCode } from 'lucide-react'
+import { LayoutDashboard, ListTodo, LogOut, BarChart3, Settings, Users, HelpCircle, QrCode } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
@@ -50,13 +50,15 @@ export function DashboardSidebar({ shop, profile }: any) {
       <SidebarContent className="p-2">
         <SidebarMenu>
           {navItems.map((item) => {
-            const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`)
+            const isActive = item.href === '/dashboard' 
+              ? pathname === '/dashboard'
+              : pathname === item.href || pathname.startsWith(`${item.href}/`)
             return (
               <SidebarMenuItem key={item.name}>
                 <SidebarMenuButton 
                   isActive={isActive} 
                   tooltip={item.name}
-                  render={<Link href={item.href} />}
+                  render={<Link href={item.href} prefetch={true} />}
                 >
                   <item.icon className="h-4 w-4" />
                   <span>{item.name}</span>
