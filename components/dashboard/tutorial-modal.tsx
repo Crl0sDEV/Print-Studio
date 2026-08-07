@@ -14,15 +14,15 @@ export function TutorialModal({ open, onOpenChange }: { open: boolean, onOpenCha
           <div className="flex gap-3 items-start">
             <div className="bg-primary/10 p-2 rounded-full text-primary shrink-0"><MousePointerClick className="w-5 h-5" /></div>
             <div>
-              <h4 className="font-semibold text-sm">Drag and Drop Workflow</h4>
-              <p className="text-sm text-muted-foreground mt-1">Move order cards across columns as they progress in your shop. Just click and hold a card to move it from "Pending" up to "Ready for Pickup".</p>
+              <h4 className="font-semibold text-sm">Smart Data Table</h4>
+              <p className="text-sm text-muted-foreground mt-1">View all your orders sorted by latest. Click on any order row to open its full details and change its status.</p>
             </div>
           </div>
           <div className="flex gap-3 items-start">
             <div className="bg-primary/10 p-2 rounded-full text-primary shrink-0"><Lightbulb className="w-5 h-5" /></div>
             <div>
               <h4 className="font-semibold text-sm">Print Receipts & Mark as Paid</h4>
-              <p className="text-sm text-muted-foreground mt-1">Click on any order card to view its full details. Inside the modal, you can mark the order as Paid or print a Job Ticket / Receipt.</p>
+              <p className="text-sm text-muted-foreground mt-1">Inside the Order Details modal, you can mark the order as Paid, change its status from a dropdown, or print a Job Ticket/Receipt.</p>
             </div>
           </div>
         </div>
@@ -36,7 +36,7 @@ export function TutorialModal({ open, onOpenChange }: { open: boolean, onOpenCha
             <div className="bg-primary/10 p-2 rounded-full text-primary shrink-0"><TrendingUp className="w-5 h-5" /></div>
             <div>
               <h4 className="font-semibold text-sm">Reading Your Analytics</h4>
-              <p className="text-sm text-muted-foreground mt-1">This page tracks your shop's performance. The "Total Paid Revenue" only counts orders that have been marked as PAID in your Kanban board.</p>
+              <p className="text-sm text-muted-foreground mt-1">This page tracks your shop's performance. The "Total Paid Revenue" only counts orders that have been marked as PAID in your orders table.</p>
             </div>
           </div>
         </div>
@@ -51,6 +51,20 @@ export function TutorialModal({ open, onOpenChange }: { open: boolean, onOpenCha
             <div>
               <h4 className="font-semibold text-sm">Customer Lifetime Value (LTV)</h4>
               <p className="text-sm text-muted-foreground mt-1">The system automatically calculates how much each customer has spent in your shop. Customers with 5 or more orders will automatically get a VIP badge!</p>
+            </div>
+          </div>
+        </div>
+      )
+    }
+
+    if (pathname.includes('/qr')) {
+      return (
+        <div className="space-y-4 pt-4">
+          <div className="flex gap-3 items-start">
+            <div className="bg-primary/10 p-2 rounded-full text-primary shrink-0"><Lightbulb className="w-5 h-5" /></div>
+            <div>
+              <h4 className="font-semibold text-sm">Your Storefront QR Code</h4>
+              <p className="text-sm text-muted-foreground mt-1">This QR code points directly to your public file upload page. Print it and display it in your physical shop so walk-in customers can easily send files via their phones!</p>
             </div>
           </div>
         </div>
