@@ -65,59 +65,25 @@ export default function Home() {
             </div>
 
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {/* Feature 1 */}
-              <div className="rounded-2xl border border-border/40 bg-card p-8 transition-all hover:border-primary/50 hover:shadow-lg hover:-translate-y-1">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                  <Calculator className="h-6 w-6" />
-                </div>
-                <h3 className="mb-2 text-xl font-bold">Dynamic Pricing Engine</h3>
-                <p className="text-muted-foreground">Set complex pricing matrices based on paper size, color mode, and quantity. Customers get instant, accurate quotes.</p>
-              </div>
-
-              {/* Feature 2 */}
-              <div className="rounded-2xl border border-border/40 bg-card p-8 transition-all hover:border-primary/50 hover:shadow-lg hover:-translate-y-1">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                  <ListTodo className="h-6 w-6" />
-                </div>
-                <h3 className="mb-2 text-xl font-bold">Smart Orders Table</h3>
-                <p className="text-muted-foreground">Manage thousands of print jobs with a paginated, real-time data table. Instantly update statuses without losing track.</p>
-              </div>
-
-              {/* Feature 3 */}
-              <div className="rounded-2xl border border-border/40 bg-card p-8 transition-all hover:border-primary/50 hover:shadow-lg hover:-translate-y-1">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                  <UploadCloud className="h-6 w-6" />
-                </div>
-                <h3 className="mb-2 text-xl font-bold">Secure Asset Storage</h3>
-                <p className="text-muted-foreground">Customers upload PDFs and images directly to your shop. Download them instantly from your dashboard securely.</p>
-              </div>
-
-              {/* Feature 4 */}
-              <div className="rounded-2xl border border-border/40 bg-card p-8 transition-all hover:border-primary/50 hover:shadow-lg hover:-translate-y-1">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                  <QrCode className="h-6 w-6" />
-                </div>
-                <h3 className="mb-2 text-xl font-bold">Shop QR Generator</h3>
-                <p className="text-muted-foreground">Automatically generate a custom branded QR code for your public storefront. Print it and let walk-in customers scan it!</p>
-              </div>
-
-              {/* Feature 5 */}
-              <div className="rounded-2xl border border-border/40 bg-card p-8 transition-all hover:border-primary/50 hover:shadow-lg hover:-translate-y-1">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                  <WifiOff className="h-6 w-6" />
-                </div>
-                <h3 className="mb-2 text-xl font-bold">Offline-First PWA</h3>
-                <p className="text-muted-foreground">Keep working even if your internet goes down. Our offline-sync engine saves your changes locally and uploads them later.</p>
-              </div>
-
-              {/* Feature 6 */}
-              <div className="rounded-2xl border border-border/40 bg-card p-8 transition-all hover:border-primary/50 hover:shadow-lg hover:-translate-y-1">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                  <Maximize className="h-6 w-6" />
-                </div>
-                <h3 className="mb-2 text-xl font-bold">Auto-Layout Studio</h3>
-                <p className="text-muted-foreground">Built-in visual studio for ID cards and merchandise. Automatically tile images for printing directly from the browser.</p>
-              </div>
+              {[
+                { icon: Calculator, title: 'Dynamic Pricing Engine', desc: 'Set complex pricing matrices based on paper size, color mode, and quantity. Customers get instant, accurate quotes.' },
+                { icon: ListTodo, title: 'Smart Orders Table', desc: 'Manage thousands of print jobs with a paginated, real-time data table. Instantly update statuses without losing track.' },
+                { icon: UploadCloud, title: 'Secure Asset Storage', desc: 'Customers upload PDFs and images directly to your shop. Download them instantly from your dashboard securely.' },
+                { icon: QrCode, title: 'Shop QR Generator', desc: 'Automatically generate a custom branded QR code for your public storefront. Print it and let walk-in customers scan it!' },
+                { icon: WifiOff, title: 'Offline-First PWA', desc: 'Keep working even if your internet goes down. Our offline-sync engine saves your changes locally and uploads them later.' },
+                { icon: Maximize, title: 'Auto-Layout Studio', desc: 'Built-in visual studio for ID cards and merchandise. Automatically tile images for printing directly from the browser.' },
+              ].map((feature, idx) => {
+                const Icon = feature.icon
+                return (
+                  <div key={idx} className="rounded-2xl border border-border/40 bg-card p-8 transition-all hover:border-primary/50 hover:shadow-lg hover:-translate-y-1">
+                    <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                      <Icon className="h-6 w-6" />
+                    </div>
+                    <h3 className="mb-2 text-xl font-bold">{feature.title}</h3>
+                    <p className="text-muted-foreground">{feature.desc}</p>
+                  </div>
+                )
+              })}
             </div>
           </div>
         </section>

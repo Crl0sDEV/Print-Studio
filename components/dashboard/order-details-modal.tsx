@@ -4,7 +4,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Download, User, Phone, CheckCircle, CreditCard, Printer } from 'lucide-react'
-import { updatePaymentStatus } from '@/app/dashboard/orders/actions'
+import { updatePaymentStatus, updateOrderStatus } from '@/app/dashboard/orders/actions'
 import { useTransition } from 'react'
 import { useOfflineSync } from '@/hooks/use-offline-sync'
 import {
@@ -14,7 +14,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { updateOrderStatus } from '@/app/dashboard/orders/actions'
 
 export function OrderDetailsModal({ 
   order, 
