@@ -57,7 +57,7 @@ export function QrClient({ shop }: { shop: any }) {
     
     // Draw alternative instruction
     ctx.fillStyle = '#64748b'
-    ctx.font = '14px sans-serif'
+    ctx.font = '10px sans-serif'
     ctx.fillText('Or type this link directly in your browser', poster.width / 2, 560)
 
     // Export to PNG and download
