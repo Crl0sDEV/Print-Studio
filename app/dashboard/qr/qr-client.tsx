@@ -52,12 +52,12 @@ export function QrClient({ shop }: { shop: any }) {
 
     // Draw URL at the bottom
     ctx.fillStyle = '#0f172a'
-    ctx.font = 'bold 20px sans-serif'
+    ctx.font = 'bold 16px sans-serif'
     ctx.fillText(url, poster.width / 2, 530)
     
     // Draw alternative instruction
     ctx.fillStyle = '#64748b'
-    ctx.font = '10px sans-serif'
+    ctx.font = '14px sans-serif'
     ctx.fillText('Or type this link directly in your browser', poster.width / 2, 560)
 
     // Export to PNG and download
