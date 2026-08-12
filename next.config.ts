@@ -33,7 +33,7 @@ const nextConfig: NextConfig = {
         source: '/(.*)',
         headers: [
           { key: 'X-Content-Type-Options', value: 'nosniff' },
-          { key: 'X-Frame-Options', value: 'DENY' },
+          // Removed X-Frame-Options to allow embedding in portfolio iframe
           { key: 'X-XSS-Protection', value: '1; mode=block' },
         ],
       },
