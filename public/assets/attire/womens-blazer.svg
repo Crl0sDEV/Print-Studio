@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 350" width="100%" height="100%">
+  <defs>
+    <linearGradient id="blazerNavy" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B" />
+      <stop offset="50%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#090D16" />
+    </linearGradient>
+    <linearGradient id="blouseSilk" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#F1F5F9" />
+    </linearGradient>
+    <filter id="lapelSoft" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3.5" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Blazer Jacket Base -->
+  <path d="M 125 75 Q 60 105 0 170 L 0 350 L 400 350 L 400 170 Q 340 105 275 75 Q 200 95 125 75 Z" 
+        fill="url(#blazerNavy)" />
+
+  <!-- Inner Modest Scoop/V Blouse -->
+  <path d="M 150 75 Q 200 175 250 75 L 235 240 L 165 240 Z" fill="url(#blouseSilk)" stroke="#E2E8F0" stroke-width="1" />
+
+  <!-- Subtle Pearl/Pendant Accent -->
+  <circle cx="200" cy="115" r="4" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1" />
+
+  <!-- Left Shawl/Curved Lapel -->
+  <path d="M 125 75 Q 165 140 195 245 L 180 350 L 0 350 L 0 170 Q 60 105 125 75 Z" 
+        fill="url(#blazerNavy)" 
+        stroke="#334155" 
+        stroke-width="1.5" 
+        filter="url(#lapelSoft)" />
+
+  <!-- Right Shawl/Curved Lapel -->
+  <path d="M 275 75 Q 235 140 205 245 L 220 350 L 400 350 L 400 170 Q 340 105 275 75 Z" 
+        fill="url(#blazerNavy)" 
+        stroke="#334155" 
+        stroke-width="1.5" 
+        filter="url(#lapelSoft)" />
+
+  <!-- Contoured Fit Seam Lines -->
+  <path d="M 110 160 Q 130 250 140 350" fill="none" stroke="#334155" stroke-width="1" stroke-dasharray="2,2" />
+  <path d="M 290 160 Q 270 250 260 350" fill="none" stroke="#334155" stroke-width="1" stroke-dasharray="2,2" />
+
+  <!-- Single Elegant Button -->
+  <circle cx="200" cy="265" r="5" fill="#0F172A" stroke="#64748B" stroke-width="1.5" />
+</svg>

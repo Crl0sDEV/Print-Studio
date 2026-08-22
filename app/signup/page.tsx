@@ -1,10 +1,6 @@
-import { signup } from '../login/actions'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Printer } from 'lucide-react'
 import Link from 'next/link'
 import { AuthCard } from '@/components/auth/auth-card'
+import { SignupForm } from '@/components/auth/signup-form'
 
 export default async function SignUpPage({
   searchParams,
@@ -16,9 +12,10 @@ export default async function SignUpPage({
   return (
     <AuthCard
       customLogo="/favicon-32x32.png"
-      title="Create an account"
-      description="Enter your details to set up your shop"
+      title="Create shop owner account"
+      description="Set up your secure print shop management studio"
       error={error}
+      maxWidth="lg"
       footer={
         <>
           Already have an account?{' '}
@@ -28,31 +25,7 @@ export default async function SignUpPage({
         </>
       }
     >
-      <form action={signup} className="space-y-4">
-        <div className="space-y-2">
-          <Label htmlFor="fullName">Full Name</Label>
-          <Input id="fullName" name="fullName" type="text" placeholder="Carlos Sandrino" required />
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="shopName">Print Shop Name</Label>
-          <Input id="shopName" name="shopName" type="text" placeholder="Express Printing Studio" required />
-        </div>
-        
-        <div className="space-y-2">
-          <Label htmlFor="email">Email</Label>
-          <Input id="email" name="email" type="email" placeholder="owner@printshop.ph" required />
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="password">Password</Label>
-          <Input id="password" name="password" type="password" placeholder="••••••••" minLength={6} required />
-        </div>
-
-        <Button type="submit" className="w-full">
-          Create Account
-        </Button>
-      </form>
+      <SignupForm />
     </AuthCard>
   )
 }

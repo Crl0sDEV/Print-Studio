@@ -1,12 +1,15 @@
 'use client'
 
+import Link from 'next/link'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Download, User, Phone, CheckCircle, CreditCard, Printer } from 'lucide-react'
+import { Button, buttonVariants } from '@/components/ui/button'
+import { Download, User, Phone, CheckCircle, CreditCard, Printer, Sparkles } from 'lucide-react'
 import { updatePaymentStatus, updateOrderStatus } from '@/app/dashboard/orders/actions'
 import { useTransition } from 'react'
 import { useOfflineSync } from '@/hooks/use-offline-sync'
+import { OrderStatus } from '@/types/database'
+import { cn } from '@/lib/utils'
 import {
   Select,
   SelectContent,
@@ -36,7 +39,7 @@ export function OrderDetailsModal({
     })
   }
 
-  const handleStatusChange = (newStatus: string) => {
+  const handleStatusChange = (newStatus: OrderStatus) => {
     startTransition(async () => {
       await enqueueAction('UPDATE_ORDER_STATUS', { orderId: order.id, status: newStatus })
       // Offline sync queue will process this
@@ -56,10 +59,14 @@ export function OrderDetailsModal({
               </DialogTitle>
               {order.is_rush && <Badge variant="destructive" className="h-5 px-1.5 text-[10px]">RUSH</Badge>}
             </div>
-            <Button size="sm" variant="outline" className="h-8 text-xs" nativeButton={false} render={<a href={`/dashboard/orders/${order.id}/receipt`} target="_blank" />}>
+            <Link
+              href={`/dashboard/orders/${order.id}/receipt`}
+              target="_blank"
+              className={cn(buttonVariants({ variant: 'outline', size: 'sm' }), "h-8 text-xs")}
+            >
               <Printer className="mr-2 h-3 w-3" />
               Print Receipt
-            </Button>
+            </Link>
           </div>
           <DialogDescription className="mt-1">
             Placed on {new Date(order.created_at).toLocaleString()}
@@ -141,15 +148,23 @@ export function OrderDetailsModal({
                         <span className="truncate text-[10px] font-medium text-muted-foreground">{item.file_name || 'Print_Asset'}</span>
                       </div>
                       <div className="flex gap-2">
-                        {item.presets?.category === 'id_card' || item.presets?.category === 'merchandise' ? (
-                          <Button size="sm" variant="secondary" className="h-6 text-[10px] px-2" nativeButton={false} render={<a href={`/dashboard/orders/${order.id}/studio/${item.id}`} target="_blank" />}>
-                            <Printer className="mr-1 h-3 w-3" />
-                            Studio
-                          </Button>
-                        ) : null}
-                        <Button size="sm" variant="outline" className="h-6 text-[10px] px-2" nativeButton={false} render={<a href={item.file_url} target="_blank" rel="noopener noreferrer" download />}>
+                        <Link
+                          href={`/dashboard/studio?fileUrl=${encodeURIComponent(item.file_url)}&orderNumber=${order.order_number || order.id.slice(0, 8)}&customerName=${encodeURIComponent(order.customer_name)}`}
+                          className={cn(buttonVariants({ variant: 'secondary', size: 'sm' }), "h-6 text-[10px] px-2 text-primary font-semibold hover:bg-primary/10")}
+                          onClick={() => onClose(false)}
+                        >
+                          <Sparkles className="mr-1 h-3 w-3 text-amber-500" />
+                          Photo Studio
+                        </Link>
+                        <a
+                          href={item.file_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          download
+                          className={cn(buttonVariants({ variant: 'outline', size: 'sm' }), "h-6 text-[10px] px-2")}
+                        >
                           Download
-                        </Button>
+                        </a>
                       </div>
                     </div>
                   )}

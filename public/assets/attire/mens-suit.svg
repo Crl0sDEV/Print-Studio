@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 350" width="100%" height="100%">
+  <defs>
+    <linearGradient id="suitFabric" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1A202C" />
+      <stop offset="50%" stop-color="#111827" />
+      <stop offset="100%" stop-color="#0B0F17" />
+    </linearGradient>
+    <linearGradient id="tieSilk" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#881337" />
+      <stop offset="50%" stop-color="#BE123C" />
+      <stop offset="100%" stop-color="#881337" />
+    </linearGradient>
+    <linearGradient id="shirtWhite" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#E2E8F0" />
+    </linearGradient>
+    <filter id="lapelShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="-2" dy="4" stdDeviation="4" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- Suit Jacket Body -->
+  <path d="M 120 75 Q 50 105 0 175 L 0 350 L 400 350 L 400 175 Q 350 105 280 75 Q 200 95 120 75 Z" 
+        fill="url(#suitFabric)" />
+
+  <!-- Inner Shirt V-Shape -->
+  <polygon points="150,75 250,75 200,240" fill="url(#shirtWhite)" />
+
+  <!-- White Shirt Collar Points -->
+  <polygon points="150,75 190,120 175,78" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+  <polygon points="250,75 210,120 225,78" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+
+  <!-- Necktie Knot & Body -->
+  <polygon points="190,118 210,118 206,140 194,140" fill="url(#tieSilk)" />
+  <polygon points="194,140 206,140 215,310 200,340 185,310" fill="url(#tieSilk)" />
+  <!-- Tie Clip Accent -->
+  <rect x="187" y="195" width="26" height="3" rx="1.5" fill="#E2E8F0" opacity="0.9" />
+
+  <!-- Left Suit Lapel (Notch) -->
+  <path d="M 120 75 L 140 140 L 115 155 L 195 270 L 180 350 L 0 350 L 0 175 Q 50 105 120 75 Z" 
+        fill="url(#suitFabric)" 
+        stroke="#27303F" 
+        stroke-width="1.5" 
+        filter="url(#lapelShadow)" />
+
+  <!-- Right Suit Lapel (Notch) -->
+  <path d="M 280 75 L 260 140 L 285 155 L 205 270 L 220 350 L 400 350 L 400 175 Q 350 105 280 75 Z" 
+        fill="url(#suitFabric)" 
+        stroke="#27303F" 
+        stroke-width="1.5" 
+        filter="url(#lapelShadow)" />
+
+  <!-- Lapel Stitch Details -->
+  <path d="M 125 78 L 138 138 L 120 150 L 193 260" fill="none" stroke="#334155" stroke-width="1" stroke-dasharray="2,2" />
+  <path d="M 275 78 L 262 138 L 280 150 L 207 260" fill="none" stroke="#334155" stroke-width="1" stroke-dasharray="2,2" />
+
+  <!-- Suit Button -->
+  <circle cx="200" cy="290" r="6" fill="#0F172A" stroke="#475569" stroke-width="1" />
+  <circle cx="200" cy="290" r="2" fill="#334155" />
+</svg>

@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { PresetWithMatrix } from '@/types/database'
+import { PresetWithMatrix, PricingMatrix } from '@/types/database'
 
 export function usePricingCalculator({
   presets,
@@ -19,7 +19,7 @@ export function usePricingCalculator({
   const estimatedPrice = useMemo(() => {
     if (!selectedPreset || !selectedPreset.pricing_matrices || selectedPreset.pricing_matrices.length === 0 || quantity < 1) return 0
 
-    let applicableMatrix = selectedPreset.pricing_matrices.find(m => {
+    let applicableMatrix = selectedPreset.pricing_matrices.find((m: PricingMatrix) => {
       const qtyMatch = quantity >= m.min_quantity && (m.max_quantity === null || quantity <= m.max_quantity)
       const colorMatch = m.color_mode === colorMode || m.color_mode === 'any' || !m.color_mode
       return qtyMatch && colorMatch

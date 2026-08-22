@@ -39,8 +39,8 @@ export async function submitOrder(formData: FormData) {
   const { shopId, presetId, quantity, estimatedPrice: totalAmount, customerName, customerEmail: customerContact, slug } = validatedData.data
   const file = formData.get('printFile') as File | null
 
-  let fileUrl = null
-  let originalFileName = null
+  let fileUrl: string | null = null
+  let originalFileName: string | null = null
 
   // Fetch Shop Settings for GDrive Token
   const { data: shop } = await supabase
@@ -49,51 +49,73 @@ export async function submitOrder(formData: FormData) {
     .eq('id', shopId)
     .single()
 
-  // Process File Upload if attached
-  if (file && file.size > 0) {
-    if (shop?.gdrive_refresh_token) {
-      // Use Google Drive
-      const oauth2Client = new google.auth.OAuth2(
-        process.env.GOOGLE_CLIENT_ID,
-        process.env.GOOGLE_CLIENT_SECRET
-      )
-      oauth2Client.setCredentials({ refresh_token: shop.gdrive_refresh_token })
-      const drive = google.drive({ version: 'v3', auth: oauth2Client })
-
-      const arrayBuffer = await file.arrayBuffer()
-      const buffer = Buffer.from(arrayBuffer)
-      const stream = Readable.from(buffer)
-
-      try {
-        const driveRes = await drive.files.create({
-          requestBody: { name: `PRYNT_${Date.now()}_${file.name}` },
-          media: { mimeType: file.type, body: stream },
-          fields: 'id, webViewLink'
-        })
-        fileUrl = driveRes.data.webViewLink
-        originalFileName = file.name
-      } catch (err) {
-        console.error('Google Drive Upload Failed:', err)
-        redirect(`/${slug}?error=upload_failed`)
-      }
-    } else {
-      // Fallback to Supabase
-      const fileExt = file.name.split('.').pop()
-      const safeName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`
+  // Helper function: Upload to Supabase Storage bucket
+  async function uploadToSupabaseStorage(): Promise<{ url: string | null; name: string | null }> {
+    if (!file || file.size === 0) return { url: null, name: null }
+    try {
+      const fileExt = file.name.split('.').pop() || 'png'
+      const safeName = `${Date.now()}-${Math.random().toString(36).substring(2, 8)}.${fileExt}`
       const filePath = `orders/${shopId}/${safeName}`
 
       const { error: uploadError } = await supabase.storage
         .from('print_assets')
-        .upload(filePath, file)
+        .upload(filePath, file, {
+          cacheControl: '3600',
+          upsert: false,
+        })
 
       if (uploadError) {
-        console.error('File upload failed:', uploadError)
-        redirect(`/${slug}?error=upload_failed`)
+        console.error('Supabase Storage upload error:', uploadError)
+        return { url: null, name: file.name }
       }
 
       const { data } = supabase.storage.from('print_assets').getPublicUrl(filePath)
-      fileUrl = data.publicUrl
-      originalFileName = file.name
+      return { url: data.publicUrl, name: file.name }
+    } catch (err) {
+      console.error('Supabase storage upload exception:', err)
+      return { url: null, name: file.name }
+    }
+  }
+
+  // Process File Upload if attached
+  if (file && file.size > 0) {
+    let uploaded = false
+
+    // Try Google Drive if refresh token is present
+    if (shop?.gdrive_refresh_token && process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
+      try {
+        const oauth2Client = new google.auth.OAuth2(
+          process.env.GOOGLE_CLIENT_ID,
+          process.env.GOOGLE_CLIENT_SECRET
+        )
+        oauth2Client.setCredentials({ refresh_token: shop.gdrive_refresh_token })
+        const drive = google.drive({ version: 'v3', auth: oauth2Client })
+
+        const arrayBuffer = await file.arrayBuffer()
+        const buffer = Buffer.from(arrayBuffer)
+        const stream = Readable.from(buffer)
+
+        const driveRes = await drive.files.create({
+          requestBody: { name: `PRYNT_${Date.now()}_${file.name}` },
+          media: { mimeType: file.type, body: stream },
+          fields: 'id, webViewLink',
+        })
+
+        if (driveRes.data.webViewLink) {
+          fileUrl = driveRes.data.webViewLink
+          originalFileName = file.name
+          uploaded = true
+        }
+      } catch (err) {
+        console.warn('Google Drive token expired/invalid, automatically falling back to Supabase storage:', err)
+      }
+    }
+
+    // Defensive Fallback: If Google Drive failed (invalid_grant) or not configured, use Supabase Storage
+    if (!uploaded) {
+      const fallback = await uploadToSupabaseStorage()
+      fileUrl = fallback.url
+      originalFileName = fallback.name
     }
   }
 
@@ -107,12 +129,29 @@ export async function submitOrder(formData: FormData) {
     p_quantity: quantity,
     p_file_url: fileUrl,
     p_file_name: originalFileName,
-    p_unit_price: totalAmount / quantity
+    p_unit_price: totalAmount / quantity,
   })
 
   if (error) {
     console.error('Order submission failed via RPC:', error)
     redirect(`/${slug}?error=submission_failed`)
+  }
+
+  // Notify the shop owner
+  const { data: shopOwner } = await supabase
+    .from('shops')
+    .select('owner_id')
+    .eq('id', shopId)
+    .single()
+
+  if (shopOwner?.owner_id) {
+    await supabase.from('notifications').insert({
+      user_id: shopOwner.owner_id,
+      title: `New Order: ${customerName}`,
+      message: `Total: PHP ${totalAmount.toFixed(2)} (${quantity} items)`,
+      type: 'order',
+      link_url: '/dashboard/orders',
+    })
   }
 
   redirect(`/${slug}?success=true`)
